@@ -8,3 +8,5 @@ export const userApiSlice = apiSlice.injectEndpoints({
     }),
   }),
 });
+
+export const { useGetMeQuery } = userApiSlice;
