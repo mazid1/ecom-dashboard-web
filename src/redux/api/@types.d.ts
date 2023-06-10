@@ -5,8 +5,3 @@ export type User = {
   email: string;
   address: string;
 };
-
-export type LoginDto = {
-  username: string;
-  password: string;
-};

@@ -9,10 +9,11 @@ import {
   Tabs,
 } from "@chakra-ui/react";
 import { LoginForm } from "../components/auth/LoginForm";
+import { RegisterForm } from "../components/auth/RegisterForm";
 
 export const LoginPage = () => {
   return (
-    <Center mt={200}>
+    <Center mt={100}>
       <Card>
         <CardBody>
           <Tabs variant="enclosed">
@@ -25,7 +26,7 @@ export const LoginPage = () => {
                 <LoginForm />
               </TabPanel>
               <TabPanel>
-                <p>register form</p>
+                <RegisterForm />
               </TabPanel>
             </TabPanels>
           </Tabs>

@@ -1,10 +1,33 @@
+import { LoginDto } from "../../components/auth/LoginForm";
+import { RegisterDto } from "../../components/auth/RegisterForm";
 import { history } from "../../helpers/history";
-import { LoginDto, User } from "./@types";
+import { User } from "./@types";
 import { apiSlice } from "./apiSlice";
 import { userApiSlice } from "./userApiSlice";
 
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (build) => ({
+    register: build.mutation<User, RegisterDto>({
+      query: (userInfo: RegisterDto) => ({
+        url: "/auth/register",
+        method: "POST",
+        body: userInfo,
+      }),
+      onQueryStarted: async (args, { dispatch, queryFulfilled }) => {
+        try {
+          await queryFulfilled;
+          await dispatch(
+            authApiSlice.endpoints.login.initiate({
+              username: args.username,
+              password: args.password,
+            })
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      },
+    }),
+
     login: build.mutation<User, LoginDto>({
       query: (credentials: LoginDto) => ({
         url: "/auth/login",
@@ -15,6 +38,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
         try {
           await queryFulfilled;
           await dispatch(userApiSlice.endpoints.getMe.initiate());
+          // navigate to target page once login succeeded
+          history.navigate?.(history.location ?? "/", { replace: true });
         } catch (error) {
           console.log(error);
         }
@@ -42,4 +67,5 @@ export const authApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, useLogoutMutation } = authApiSlice;
+export const { useRegisterMutation, useLoginMutation, useLogoutMutation } =
+  authApiSlice;

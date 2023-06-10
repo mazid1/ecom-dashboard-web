@@ -11,7 +11,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { handleError } from "../../helpers/handleError";
-import { history } from "../../helpers/history";
 import { useLoginMutation } from "../../redux/api/authApiSlice";
 
 const loginSchema = z.object({
@@ -19,7 +18,7 @@ const loginSchema = z.object({
   password: z.string().nonempty("Password is required"),
 });
 
-type LoginDto = z.infer<typeof loginSchema>;
+export type LoginDto = z.infer<typeof loginSchema>;
 
 export const LoginForm = () => {
   const {
@@ -37,8 +36,6 @@ export const LoginForm = () => {
   const submitHandler: SubmitHandler<LoginDto> = async (data) => {
     try {
       await login(data).unwrap();
-      // navigate to target page
-      history.navigate?.(history.location ?? "/", { replace: true });
     } catch (error) {
       handleError(error, toast);
     }
