@@ -6,7 +6,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { createColumnHelper } from "@tanstack/react-table";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Product } from "../../redux/api/@types";
 import { useGetAllProductsQuery } from "../../redux/api/productApiSlice";
 import { DataTable } from "../common/DataTable";
@@ -35,6 +35,10 @@ export const ProductsList = () => {
       selectedProductIds.push(products?.[Number(idx)]?._id);
     }
   }
+
+  useEffect(() => {
+    setRowSelection({});
+  }, [products]);
 
   const columns = useMemo(
     () => [
