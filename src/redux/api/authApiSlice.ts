@@ -1,3 +1,4 @@
+import { history } from "../../helpers/history";
 import { LoginDto, User } from "./@types";
 import { apiSlice } from "./apiSlice";
 import { userApiSlice } from "./userApiSlice";
@@ -19,7 +20,26 @@ export const authApiSlice = apiSlice.injectEndpoints({
         }
       },
     }),
+
+    logout: build.mutation<void, void>({
+      query: () => ({
+        url: "/auth/logout",
+        method: "POST",
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          // navigate to login page once logout succeeded
+          history.navigate?.("/login", { replace: true });
+        } catch (e) {
+          console.log("failed to logout", e);
+        } finally {
+          // reset redux states
+          dispatch(apiSlice.util.resetApiState());
+        }
+      },
+    }),
   }),
 });
 
-export const { useLoginMutation } = authApiSlice;
+export const { useLoginMutation, useLogoutMutation } = authApiSlice;
