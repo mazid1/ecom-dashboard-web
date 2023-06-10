@@ -6,7 +6,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { createColumnHelper } from "@tanstack/react-table";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Product } from "../../redux/api/@types";
 import { useGetAllProductsQuery } from "../../redux/api/productApiSlice";
 import { DataTable } from "../common/DataTable";
@@ -27,18 +27,14 @@ export const ProductsList = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [clickedProduct, setClickedProduct] = useState<Product>();
   const [rowSelection, setRowSelection] = useState({});
-  const [selectedProductIds, setSelectedProductIds] = useState<string[]>([]);
 
-  useEffect(() => {
-    const indices = Object.keys(rowSelection);
-    const productIds: string[] = [];
-    for (const idx of indices) {
-      if (products?.[Number(idx)]?._id) {
-        productIds.push(products?.[Number(idx)]?._id);
-      }
+  const indices = Object.keys(rowSelection);
+  const selectedProductIds: string[] = [];
+  for (const idx of indices) {
+    if (products?.[Number(idx)]?._id) {
+      selectedProductIds.push(products?.[Number(idx)]?._id);
     }
-    setSelectedProductIds(productIds);
-  }, [rowSelection, products]);
+  }
 
   const columns = useMemo(
     () => [
@@ -106,10 +102,7 @@ export const ProductsList = () => {
         />
         <Stack mt={8} direction="row" gap={4}>
           <AddProduct />
-          <DeleteProducts
-            selectedProductIds={selectedProductIds}
-            isDisabled={selectedProductIds.length === 0}
-          />
+          <DeleteProducts selectedProductIds={selectedProductIds} />
         </Stack>
         <ProductFormModal
           isOpen={isOpen}

@@ -6,11 +6,10 @@ import { useConfirmation } from "../common/confirmation";
 
 type DeleteProductsProps = {
   selectedProductIds: string[];
-  isDisabled: boolean;
 };
 
 export const DeleteProducts = (props: DeleteProductsProps) => {
-  const { selectedProductIds, isDisabled } = props;
+  const { selectedProductIds } = props;
 
   const toast = useToast();
   const { ask } = useConfirmation();
@@ -55,7 +54,7 @@ export const DeleteProducts = (props: DeleteProductsProps) => {
       leftIcon={<DeleteIcon />}
       colorScheme="red"
       onClick={handleDeleteProducts}
-      isDisabled={isDisabled}
+      isDisabled={selectedProductIds.length === 0}
     >
       Delete Product
     </Button>
