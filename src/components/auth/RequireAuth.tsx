@@ -5,8 +5,6 @@ interface RequireAuthProps {
   children?: ReactElement;
 }
 
-function RequireAuth({ children }: RequireAuthProps) {
+export const RequireAuth = ({ children }: RequireAuthProps) => {
   return children ? children : <Outlet />;
-}
-
-export default RequireAuth;
+};

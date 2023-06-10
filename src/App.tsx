@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
-import Sidebar from "./components/layout/Sidebar";
-import RequireAuth from "./components/auth/RequireAuth";
-import ProductsPage from "./pages/ProductsPage";
+import { RequireAuth } from "./components/auth/RequireAuth";
+import { Sidebar } from "./components/layout/Sidebar";
+import { LoginPage } from "./pages/LoginPage";
+import { ProductsPage } from "./pages/ProductsPage";
 
-function App() {
+export const App = () => {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
@@ -19,6 +19,4 @@ function App() {
       </Route>
     </Routes>
   );
-}
-
-export default App;
+};
