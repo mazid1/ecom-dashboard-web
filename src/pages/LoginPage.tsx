@@ -1,5 +1,35 @@
-import { Center } from "@chakra-ui/react";
+import {
+  Card,
+  CardBody,
+  Center,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+} from "@chakra-ui/react";
 
 export const LoginPage = () => {
-  return <Center h="100vh">LoginPage</Center>;
+  return (
+    <Center mt={200}>
+      <Card>
+        <CardBody>
+          <Tabs variant="enclosed">
+            <TabList>
+              <Tab>Login</Tab>
+              <Tab>Create Account</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <p>login form</p>
+              </TabPanel>
+              <TabPanel>
+                <p>register form</p>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        </CardBody>
+      </Card>
+    </Center>
+  );
 };
