@@ -8,14 +8,9 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
-import { useLocation } from "react-router-dom";
 import { LoginForm } from "../components/auth/LoginForm";
-import { history } from "../helpers/history";
 
 export const LoginPage = () => {
-  // globally store current location
-  history.location = useLocation();
-
   return (
     <Center mt={200}>
       <Card>

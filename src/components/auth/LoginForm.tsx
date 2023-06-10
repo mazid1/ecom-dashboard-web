@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { handleError } from "../../helpers/handleError";
+import { history } from "../../helpers/history";
 import { useLoginMutation } from "../../redux/api/authApiSlice";
 
 const loginSchema = z.object({
@@ -35,9 +36,9 @@ export const LoginForm = () => {
 
   const submitHandler: SubmitHandler<LoginDto> = async (data) => {
     try {
-      const response = await login(data).unwrap();
-      // todo: login success, navigate to home page
-      console.log(response);
+      await login(data).unwrap();
+      // navigate to target page
+      history.navigate?.(history.location ?? "/", { replace: true });
     } catch (error) {
       handleError(error, toast);
     }
