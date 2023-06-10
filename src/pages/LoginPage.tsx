@@ -8,6 +8,7 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
+import { LoginForm } from "../components/auth/LoginForm";
 
 export const LoginPage = () => {
   return (
@@ -21,7 +22,7 @@ export const LoginPage = () => {
             </TabList>
             <TabPanels>
               <TabPanel>
-                <p>login form</p>
+                <LoginForm />
               </TabPanel>
               <TabPanel>
                 <p>register form</p>
