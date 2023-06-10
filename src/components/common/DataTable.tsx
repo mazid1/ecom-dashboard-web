@@ -1,4 +1,4 @@
-import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons';
+import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import {
   Table,
   TableContainer,
@@ -8,7 +8,7 @@ import {
   Thead,
   Tr,
   chakra,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 import {
   ColumnDef,
   SortingState,
@@ -16,27 +16,35 @@ import {
   getCoreRowModel,
   getSortedRowModel,
   useReactTable,
-} from '@tanstack/react-table';
-import { useState } from 'react';
+} from "@tanstack/react-table";
+import { Dispatch, SetStateAction, useState } from "react";
 
 export type DataTableProps<Data extends object> = {
   data: Data[];
   columns: ColumnDef<Data, any>[];
+  rowSelection?: Record<number, boolean>;
+  setRowSelection?: Dispatch<SetStateAction<any>>;
 };
 
 export function DataTable<Data extends object>({
   data,
   columns,
+  rowSelection,
+  setRowSelection,
 }: DataTableProps<Data>) {
   const [sorting, setSorting] = useState<SortingState>([]);
+
   const table = useReactTable({
     columns,
     data,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
     state: {
       sorting,
+      rowSelection,
     },
   });
 
@@ -52,7 +60,11 @@ export function DataTable<Data extends object>({
                 return (
                   <Th
                     key={header.id}
-                    onClick={header.column.getToggleSortingHandler()}
+                    onClick={
+                      header.column.id !== "_id"
+                        ? header.column.getToggleSortingHandler()
+                        : undefined
+                    }
                     isNumeric={meta?.isNumeric}
                   >
                     {flexRender(
@@ -62,7 +74,7 @@ export function DataTable<Data extends object>({
 
                     <chakra.span pl="4">
                       {header.column.getIsSorted() ? (
-                        header.column.getIsSorted() === 'desc' ? (
+                        header.column.getIsSorted() === "desc" ? (
                           <TriangleDownIcon aria-label="sorted descending" />
                         ) : (
                           <TriangleUpIcon aria-label="sorted ascending" />

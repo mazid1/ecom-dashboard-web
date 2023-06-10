@@ -4,6 +4,10 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { App } from "./App.tsx";
+import {
+  ConfirmationContextProvider,
+  ConfirmationModal,
+} from "./components/common/confirmation";
 import { store } from "./redux/store.ts";
 import { theme } from "./theme.ts";
 
@@ -13,7 +17,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <ChakraProvider theme={theme}>
         <ColorModeScript initialColorMode={theme["config"].initialColorMode} />
         <BrowserRouter>
-          <App />
+          <ConfirmationContextProvider>
+            <App />
+            <ConfirmationModal />
+          </ConfirmationContextProvider>
         </BrowserRouter>
       </ChakraProvider>
     </Provider>
