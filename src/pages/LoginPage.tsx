@@ -18,8 +18,8 @@ export const LoginPage = () => {
         <CardBody>
           <Tabs variant="enclosed">
             <TabList>
-              <Tab>Login</Tab>
-              <Tab>Create Account</Tab>
+              <Tab data-testid="login-tab">Login</Tab>
+              <Tab data-testid="register-tab">Create Account</Tab>
             </TabList>
             <TabPanels>
               <TabPanel>

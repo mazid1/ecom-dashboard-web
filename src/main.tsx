@@ -8,8 +8,10 @@ import {
   ConfirmationContextProvider,
   ConfirmationModal,
 } from "./components/common/confirmation";
-import { store } from "./redux/store.ts";
 import { theme } from "./theme.ts";
+import { setupStore } from "./redux/store.ts";
+
+const store = setupStore();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
