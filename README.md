@@ -1,4 +1,5 @@
 # ecom-dashboard-web
+
 Product managing dashboard application.
 
 ## Installation
@@ -19,3 +20,8 @@ $ pnpm run dev
 $ pnpm run build
 ```
 
+## Run tests
+
+```bash
+$ pnpm run test
+```
